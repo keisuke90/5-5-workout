@@ -1,0 +1,20 @@
+{
+  "name": "frontend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/keisuke90/5x5-workout.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/keisuke90/5x5-workout/issues"
+  },
+  "homepage": "https://github.com/keisuke90/5x5-workout#readme"
+}
