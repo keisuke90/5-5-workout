@@ -1,10 +1,10 @@
-import express, { Request, Response } from "express";
+import express, { Request, Response, Errback, NextFunction } from "express";
 
 const app = express();
 const port = 3000;
 
 app.get("/", (req: Request, res: Response) => {
-  res.send("Hello World!");
+  res.status(200).send("Hello, world!!!");
 });
 
 app.listen(port, () => {
