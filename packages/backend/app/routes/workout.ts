@@ -1,7 +1,5 @@
-const express = require("express");
-const router = express.Router();
-const workoutController = require("../controllers/workoutController");
+import express from "express";
+import { fiveByFive } from "../controllers/workoutController";
+export const workoutRouter = express.Router();
 
-router.post("/5x5", workoutController.fiveByFive);
-
-module.exports = router;
+workoutRouter.post("/5x5", fiveByFive);

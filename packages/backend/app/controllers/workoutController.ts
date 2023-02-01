@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 
-exports.fiveByFive = (req: Request, res: Response) => {
+export const fiveByFive = (req: Request, res: Response) => {
   const weight: number = req.body.weight;
   const p1 = [
     Math.ceil(weight * 0.55) - (Math.ceil(weight * 0.55) % 2.5),
