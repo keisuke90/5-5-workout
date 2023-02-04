@@ -1,7 +1,16 @@
 <script setup lang="ts"></script>
 
 <template>
-  <h1>Hello, World!</h1>
+  <div class="section">
+    <h1>Hello, World!</h1>
+  </div>
 </template>
 
-<style scoped></style>
+<style lang="scss" scoped>
+.section {
+  background-color: red;
+  h1 {
+    color: white;
+  }
+}
+</style>
