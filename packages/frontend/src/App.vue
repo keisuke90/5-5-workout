@@ -1,16 +1,19 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { ref, onMounted } from "vue";
+import WorkoutApiService from "./services/workoutApi";
+
+let workout: any = ref({});
+onMounted(() => {
+  WorkoutApiService.fiveByFiveGenerate(100).then((res: any) => {
+    workout.value = res.data;
+  });
+});
+</script>
 
 <template>
-  <div class="section">
-    <h1>Hello, World!</h1>
+  <div class="table">
+    {{ workout }}
   </div>
 </template>
 
-<style lang="scss" scoped>
-.section {
-  background-color: red;
-  h1 {
-    color: white;
-  }
-}
-</style>
+<style lang="scss" scoped></style>
