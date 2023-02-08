@@ -20,9 +20,10 @@ const fiveByFive = (weight: number) => {
     <input
       type="number"
       v-model="weight"
-      placeholder="kg"
+      placeholder="最大重量を入力"
       @input="fiveByFive(weight)"
     />
+    <p>kg</p>
   </div>
   <div class="table-wrapper">
     <table class="table">
@@ -57,13 +58,22 @@ input[type="number"]::-webkit-inner-spin-button {
 .input-wrapper {
   display: flex;
   justify-content: center;
+  padding: 10px;
+  p {
+    display: flex;
+    align-items: flex-end;
+    margin: 0;
+  }
   input {
     font-size: 20px;
-    width: 50px;
+    width: auto;
     height: 30px;
     border: none;
     text-align: center;
     border-bottom: 2px solid white;
+    &:hover {
+      border-bottom: 2px solid gray;
+    }
     &:focus-visible,
     &:active {
       border: none;
