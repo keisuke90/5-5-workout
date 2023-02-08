@@ -63,6 +63,7 @@ input[type="number"]::-webkit-inner-spin-button {
     height: 30px;
     border: none;
     text-align: center;
+    border-bottom: 2px solid white;
     &:focus-visible,
     &:active {
       border: none;
