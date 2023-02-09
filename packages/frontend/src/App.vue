@@ -16,17 +16,17 @@ const fiveByFive = (weight: number) => {
 </script>
 
 <template>
-  <div class="input-wrapper">
-    <input
-      type="number"
-      v-model="weight"
-      placeholder="最大重量を入力"
-      @input="fiveByFive(weight)"
-    />
-    <p>kg</p>
-  </div>
-  <div class="table-wrapper">
-    <table class="table">
+  <div class="five-by-five">
+    <div class="input-wrapper">
+      <input
+        type="number"
+        v-model="weight"
+        placeholder="最大重量を入力"
+        @input="fiveByFive(weight)"
+      />
+      <p>kg</p>
+    </div>
+    <div class="table-wrapper">
       <tr class="table__row">
         <th class="table__header">DAY</th>
         <th class="table__header">SET1</th>
@@ -44,11 +44,16 @@ const fiveByFive = (weight: number) => {
         <td class="table__data">{{ value[3] }}×５</td>
         <td class="table__data">{{ value[4] }}×５</td>
       </tr>
-    </table>
+    </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
+.five-by-five {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 // inputタグのスピンボタンを消す
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
@@ -57,8 +62,8 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 .input-wrapper {
   display: flex;
-  justify-content: center;
   padding: 10px;
+
   p {
     display: flex;
     align-items: flex-end;
@@ -82,26 +87,28 @@ input[type="number"]::-webkit-inner-spin-button {
     }
   }
 }
-.table {
-  margin: auto;
-  border: none;
+
+.table-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 800px;
 }
-.table__header {
+
+.table__header,
+.table__data {
   width: 150px;
   padding: 10px 0;
 }
 .table__row {
   text-align: center;
-  border: none;
-  &:nth-child(2n + 1) {
+  border-bottom: 1px solid gray;
+  &:hover {
     background-color: rgb(175, 172, 172);
   }
   &:first-child {
     background-color: #1a2adf;
     color: white;
   }
-}
-.table__data {
-  padding: 10px 20px;
 }
 </style>
