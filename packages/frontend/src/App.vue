@@ -1,4 +1,5 @@
 <template>
+  <main-header></main-header>
   <div class="five-by-five">
     <div class="input-wrapper">
       <input
@@ -34,6 +35,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import WorkoutApiService from "./services/workoutApi";
+import MainHeader from "./components/MainHeader.vue";
 
 let weight = ref();
 let workout = ref({});
