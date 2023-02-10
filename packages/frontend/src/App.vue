@@ -1,20 +1,3 @@
-<script setup lang="ts">
-import { ref } from "vue";
-import WorkoutApiService from "./services/workoutApi";
-
-let weight = ref();
-let workout = ref({});
-const fiveByFive = (weight: number) => {
-  WorkoutApiService.fiveByFiveGenerate(weight)
-    .then((res: any) => {
-      workout.value = res.data;
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-};
-</script>
-
 <template>
   <div class="five-by-five">
     <div class="input-wrapper">
@@ -47,6 +30,23 @@ const fiveByFive = (weight: number) => {
     </div>
   </div>
 </template>
+
+<script setup lang="ts">
+import { ref } from "vue";
+import WorkoutApiService from "./services/workoutApi";
+
+let weight = ref();
+let workout = ref({});
+const fiveByFive = (weight: number) => {
+  WorkoutApiService.fiveByFiveGenerate(weight)
+    .then((res: any) => {
+      workout.value = res.data;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+</script>
 
 <style lang="scss" scoped>
 .five-by-five {
