@@ -6,15 +6,21 @@
     </div>
     <nav class="menu">
       <ul>
-        <li class="menu__item">About</li>
-        <li class="menu__item">Signin</li>
-        <li class="menu__item">Login</li>
+        <li class="menu__item">
+          <router-link to="/about">About</router-link>
+        </li>
+        <li class="menu__item">
+          <router-link to="/signin">Signin</router-link>
+        </li>
+        <li class="menu__item">
+          <router-link to="/login">Login</router-link>
+        </li>
       </ul>
     </nav>
   </div>
 </template>
 
-<script setup></script>
+<script lang="ts" setup></script>
 
 <style lang="scss" scoped>
 .header {
