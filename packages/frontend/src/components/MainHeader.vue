@@ -1,9 +1,11 @@
 <template>
   <div class="header">
-    <div class="logo">
-      <span class="logo__inner">Workout</span>
-      <span class="logo__inner">Generator</span>
-    </div>
+    <router-link to="/">
+      <div class="logo">
+        <span class="logo__inner">Workout</span>
+        <span class="logo__inner">Generator</span>
+      </div>
+    </router-link>
     <nav class="menu">
       <ul>
         <li class="menu__item">
@@ -23,6 +25,10 @@
 <script lang="ts" setup></script>
 
 <style lang="scss" scoped>
+a {
+  color: inherit;
+  text-decoration: none;
+}
 .header {
   display: flex;
   height: 65px;
