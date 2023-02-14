@@ -10,10 +10,10 @@ type USER_TYPE = {
 };
 
 const connection = mysql.createConnection({
-  host: "localhost",
-  user: "admin",
-  password: "admin",
-  database: "workout_generator",
+  host: process.env.MYSQL_HOST || "localhost",
+  user: process.env.MYSQL_PORT || "admin",
+  password: process.env.MYSQL_PASSWORD || "admin",
+  database: process.env.DATABASE || "workout_generator",
 });
 
 connection.connect((err: QueryError | null) => {
