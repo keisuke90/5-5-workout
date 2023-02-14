@@ -1,0 +1,37 @@
+import express, { Router, Request, Response } from "express";
+import mysql, { QueryError } from "mysql2";
+
+const router: Router = express.Router();
+type USER_TYPE = {
+  id: null;
+  email: string;
+  password: string;
+  name: string;
+};
+
+const connection = mysql.createConnection({
+  host: "localhost",
+  user: "admin",
+  password: "admin",
+  database: "workout_generator",
+});
+
+connection.connect((err: QueryError | null) => {
+  if (err) {
+    console.log(err);
+    return;
+  }
+  console.log("success");
+});
+
+router.get("/", (req: Request, res: Response) => {
+  connection.query("SELECT * FROM `users`", (err: string, results: []) => {
+    if (err) {
+      console.log(err);
+      return;
+    }
+    res.send(results);
+  });
+});
+
+export default router;
