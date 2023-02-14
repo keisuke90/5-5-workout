@@ -34,4 +34,17 @@ router.get("/", (req: Request, res: Response) => {
   });
 });
 
+router.post("/create", (req: Request, res: Response) => {
+  connection.query(
+    `insert into users values (0, "${req.body.email}", "${req.body.password}", "${req.body.name}")`,
+    (err: string, results: []) => {
+      if (err) {
+        console.log(err);
+        return;
+      }
+      res.send(results);
+    }
+  );
+});
+
 export default router;
