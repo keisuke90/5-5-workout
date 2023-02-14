@@ -1,5 +1,6 @@
 import express, { Router, Request, Response } from "express";
-import mysql, { QueryError } from "mysql2";
+import { QueryError } from "mysql2";
+import { connection } from "../lib/database/database";
 
 const router: Router = express.Router();
 type USER_TYPE = {
@@ -8,13 +9,6 @@ type USER_TYPE = {
   password: string;
   name: string;
 };
-
-const connection = mysql.createConnection({
-  host: process.env.MYSQL_HOST || "localhost",
-  user: process.env.MYSQL_PORT || "admin",
-  password: process.env.MYSQL_PASSWORD || "admin",
-  database: process.env.DATABASE || "workout_generator",
-});
 
 connection.connect((err: QueryError | null) => {
   if (err) {
