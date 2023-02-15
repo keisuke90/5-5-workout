@@ -23,6 +23,22 @@ router.get("/", async (req: Request, res: Response, next: NextFunction) => {
   }
 });
 
+router.get("/:id", async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const getUserFromIdSql: QueryOptions = {
+      sql: `SELECT * FROM users WHERE id = ?`,
+      values: [req.params.id],
+    };
+    await MySQLClient.connect();
+    const user = await MySQLClient.query(getUserFromIdSql);
+    res.send(user);
+  } catch (err) {
+    next(err);
+  } finally {
+    await MySQLClient.end();
+  }
+});
+
 router.post(
   "/create",
   async (req: Request, res: Response, next: NextFunction) => {
