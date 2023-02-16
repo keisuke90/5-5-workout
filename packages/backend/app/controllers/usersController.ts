@@ -13,13 +13,23 @@ type USER_TYPE = {
 router.get("/", async (req: Request, res: Response, next: NextFunction) => {
   try {
     const getAllUsersSql: QueryOptions = { sql: `SELECT * FROM users` };
-    await MySQLClient.connect();
-    const users = await MySQLClient.query(getAllUsersSql);
+    const users = await MySQLClient.executeQuery(getAllUsersSql);
     res.send(users);
   } catch (err) {
     next(err);
-  } finally {
-    await MySQLClient.end();
+  }
+});
+
+router.get("/:id", async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const getUserFromIdSql: QueryOptions = {
+      sql: `SELECT * FROM users WHERE id = ?`,
+      values: [req.params.id],
+    };
+    const user = await MySQLClient.executeQuery(getUserFromIdSql);
+    res.send(user);
+  } catch (err) {
+    next(err);
   }
 });
 
@@ -30,13 +40,10 @@ router.post(
       const insertUserSql: QueryOptions = {
         sql: `insert into users values (0, "${req.body.email}", "${req.body.password}", "${req.body.name}")`,
       };
-      await MySQLClient.connect();
-      const result = await MySQLClient.query(insertUserSql);
+      const result = await MySQLClient.executeQuery(insertUserSql);
       res.status(201).send(result);
     } catch (err) {
       next(err);
-    } finally {
-      await MySQLClient.end();
     }
   }
 );

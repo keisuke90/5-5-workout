@@ -1,14 +1,9 @@
-import mysql from "mysql2";
-import { promisify } from "util";
+import { QueryOptions } from "mysql2";
+import pool from "./pool";
 
-const connection = mysql.createConnection({
-  host: process.env.MYSQL_HOST || "localhost",
-  user: process.env.MYSQL_USERNAME || "admin",
-  password: process.env.MYSQL_PASSWORD || "admin",
-  database: process.env.DATABASE || "workout_generator",
-});
 export const MySQLClient = {
-  connect: promisify(connection.connect).bind(connection),
-  query: promisify(connection.query).bind(connection),
-  end: promisify(connection.end).bind(connection),
+  executeQuery: async function (query: QueryOptions) {
+    let results = await pool.executeQuery(query);
+    return results;
+  },
 };
