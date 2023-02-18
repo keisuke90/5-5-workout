@@ -33,7 +33,7 @@
 
 <script lang="ts" setup>
 import { ref } from "vue";
-import WorkoutApiService from "../services/workoutApi";
+import { WorkoutApiService } from "../services/workoutApi";
 
 let weight = ref();
 let workout = ref({});
