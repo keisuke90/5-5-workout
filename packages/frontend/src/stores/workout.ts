@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import WorkoutApiService from "../services/workoutApi";
+import { WorkoutApiService } from "../services/workoutApi";
 
 type Workout = {
   day1: [number, number, number, number, number];
