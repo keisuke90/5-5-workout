@@ -12,7 +12,7 @@
           <router-link to="/about">About</router-link>
         </li>
         <li class="menu__item">
-          <router-link to="/signin">Signin</router-link>
+          <router-link to="/signup">Signup</router-link>
         </li>
         <li class="menu__item">
           <router-link to="/login">Login</router-link>
