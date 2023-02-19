@@ -33,14 +33,16 @@ export const useWorkoutStore = defineStore({
   }),
   getters: {},
   actions: {
-    fiveByFive(weight: number) {
-      WorkoutApiService.fiveByFiveGenerate(weight)
-        .then((res: any): void => {
-          this.workout = res.data;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+    fiveByFive() {
+      if (this.weight) {
+        WorkoutApiService.fiveByFiveGenerate(this.weight)
+          .then((res: any): void => {
+            this.workout = res.data;
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
     },
   },
 });
