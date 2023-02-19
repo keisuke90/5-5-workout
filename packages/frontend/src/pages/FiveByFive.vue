@@ -3,9 +3,9 @@
     <div class="input-wrapper">
       <input
         type="number"
-        v-model="weight"
+        v-model="workoutStore.weight"
         placeholder="最大重量を入力"
-        @input="fiveByFive(weight)"
+        @input="workoutStore.fiveByFive()"
       />
       <p>kg</p>
     </div>
@@ -19,7 +19,12 @@
         <th class="table__header">SET5</th>
       </tr>
 
-      <tr class="table__row" v-for="(value, key, index) in workout" :key="key">
+      <tr
+        v-show="workout"
+        class="table__row"
+        v-for="(value, key, index) in workout"
+        :key="key"
+      >
         <td class="table__data">{{ `DAY${index + 1}` }}</td>
         <td class="table__data">{{ value[0] }}×５</td>
         <td class="table__data">{{ value[1] }}×５</td>
@@ -32,20 +37,14 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from "vue";
-import { WorkoutApiService } from "../services/workoutApi";
+import { computed } from "vue";
+import { useWorkoutStore } from "../stores/workout";
 
-let weight = ref();
-let workout = ref({});
-const fiveByFive = (weight: number) => {
-  WorkoutApiService.fiveByFiveGenerate(weight)
-    .then((res: any) => {
-      workout.value = res.data;
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-};
+const workoutStore = useWorkoutStore();
+
+const workout = computed(() => {
+  return workoutStore.workout;
+});
 </script>
 
 <stype lang="scss" scoped>
