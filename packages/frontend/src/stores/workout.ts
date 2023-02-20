@@ -45,4 +45,5 @@ export const useWorkoutStore = defineStore({
       }
     },
   },
+  persist: true,
 });
