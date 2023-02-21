@@ -1,7 +1,10 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "rootDir": "app",
-    "outDir": "dist"
+    "rootDir": ".",
+    "outDir": "dist",
+    "paths": {
+      "@types/*": ["../shared/types/*"]
+    }
   }
 }
