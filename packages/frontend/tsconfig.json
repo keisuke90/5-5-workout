@@ -1,12 +1,10 @@
 {
   "extends": "../../tsconfig.json",
-  // "include": [
-  //   "../packages/frontend/src/env.d.ts",
-  //   "../packages/frontend/src/**/*",
-  //   "../packages/frontend/src/**/*.vue"
-  // ],
   "compilerOptions": {
     "rootDir": ".",
-    "outDir": "dist"
+    "outDir": "dist",
+    "paths": {
+      "@types/*": ["../shared/types/*"]
+    }
   }
 }
