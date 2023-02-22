@@ -3,12 +3,6 @@ import { QueryError, QueryOptions } from "mysql2";
 import { MySQLClient } from "../lib/database/client";
 
 const router: Router = express.Router();
-type USER_TYPE = {
-  id: null;
-  email: string;
-  password: string;
-  name: string;
-};
 
 export const getAllUsers = async (
   req: Request,
@@ -47,6 +41,7 @@ export const insertUser = async (
   next: NextFunction
 ) => {
   try {
+    console.log(req.body);
     const insertUserSql: QueryOptions = {
       sql: `insert into users values (0, "${req.body.email}", "${req.body.password}", "${req.body.name}")`,
     };
