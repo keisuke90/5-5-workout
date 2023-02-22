@@ -2,16 +2,42 @@
   <form>
     <h1>サインアップ</h1>
     <label for="username">ユーザー名</label>
-    <input type="text" id="username" name="username" required />
+    <input type="text" id="name" name="name" required v-model="user.name" />
+    <label for="username">メール</label>
+    <input type="text" id="email" name="email" required v-model="user.email" />
     <label for="password">パスワード</label>
-    <input type="password" id="password" name="password" required />
-    <label for="password">パスワード確認</label>
-    <input type="password" id="password" name="password" required />
-    <input type="submit" value="ログイン" />
+    <input
+      type="password"
+      id="password"
+      name="password"
+      required
+      v-model="user.password"
+    />
+    <label for="confirm_password">パスワード確認</label>
+    <input
+      type="password"
+      id="confirm_password"
+      name="confirm_password"
+      required
+      v-model="confirm_password"
+    />
+    <input type="submit" value="登録" @click="createUser()" />
   </form>
 </template>
 
-<script setup></script>
+<script lang="ts" setup>
+// import { ref } from "vue";
+import { UsersApiService } from "../services/usersApi";
+import { User } from "../../../shared/types/user";
+
+const user: User = { id: null, name: "", email: "", password: "" };
+let confirm_password: string | null;
+const createUser = () => {
+  if (user.password === confirm_password) {
+    UsersApiService.createUser(user);
+  }
+};
+</script>
 
 <style lang="scss" scoped>
 form {
