@@ -7,7 +7,7 @@
     <input type="password" id="password" name="password" required />
     <label for="password">パスワード確認</label>
     <input type="password" id="password" name="password" required />
-    <input type="submit" value="ログイン" />
+    <input type="submit" value="登録" />
   </form>
 </template>
 
