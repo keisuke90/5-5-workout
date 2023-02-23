@@ -26,7 +26,6 @@
 </template>
 
 <script lang="ts" setup>
-// import { ref } from "vue";
 import { UsersApiService } from "../services/usersApi";
 import { User } from "../../../shared/types/user";
 
