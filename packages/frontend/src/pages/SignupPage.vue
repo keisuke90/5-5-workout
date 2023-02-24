@@ -11,7 +11,7 @@
       id="password"
       name="password"
       required
-      v-model="user.password"
+      v-model="password"
     />
     <label for="confirm_password">パスワード確認</label>
     <input
@@ -26,13 +26,18 @@
 </template>
 
 <script lang="ts" setup>
+import { ref } from "vue";
 import { UsersApiService } from "../services/usersApi";
 import { User } from "../../../shared/types/user";
+import crypto from "crypto-js";
 
-const user: User = { id: null, name: "", email: "", password: "" };
+let password = ref("");
+const password_digest = crypto.AES.encrypt(password.value, "key").toString();
+
+const user: User = { id: null, name: "", email: "", password: password_digest };
 let confirm_password: string | null;
 const createUser = () => {
-  if (user.password === confirm_password) {
+  if (password.value === confirm_password) {
     UsersApiService.createUser(user);
   }
 };
