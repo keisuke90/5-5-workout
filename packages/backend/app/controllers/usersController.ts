@@ -46,7 +46,7 @@ export const insertUser = async (
       sql: `insert into users values (0, "${req.body.email}", "${req.body.password}", "${req.body.name}")`,
     };
     const result = await MySQLClient.executeQuery(insertUserSql);
-    res.status(201).send(result);
+    res.status(201).send({ message: "ユーザー登録が完了しました。" });
   } catch (err) {
     next(err);
   }
