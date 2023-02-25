@@ -31,6 +31,9 @@ import { UsersApiService } from "../services/usersApi";
 import { User } from "../../../shared/types/user";
 import crypto from "crypto-js";
 import router from "../router";
+import { useToast } from "vue-toastification";
+
+const toast = useToast();
 
 let password = ref("");
 const password_digest = crypto.AES.encrypt(password.value, "key").toString();
@@ -41,6 +44,7 @@ const createUser = () => {
   if (password.value === confirm_password) {
     UsersApiService.createUser(user)
       .then(() => {
+        toast.success("ユーザー登録が完了しました。");
         router.push("/");
       })
       .catch((err) => {
