@@ -11,7 +11,7 @@
       id="password"
       name="password"
       required
-      v-model="password"
+      v-model="user.password"
     />
     <label for="confirm_password">パスワード確認</label>
     <input
@@ -26,22 +26,17 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from "vue";
 import { UsersApiService } from "../services/usersApi";
 import { User } from "../../../shared/types/user";
-import crypto from "crypto-js";
 import router from "../router";
 import { useToast } from "vue-toastification";
 
 const toast = useToast();
 
-let password = ref("");
-const password_digest = crypto.AES.encrypt(password.value, "key").toString();
-
-const user: User = { id: null, name: "", email: "", password: password_digest };
+const user: User = { id: null, name: "", email: "", password: "" };
 let confirm_password: string | null;
 const createUser = () => {
-  if (password.value === confirm_password) {
+  if (user.password === confirm_password) {
     UsersApiService.createUser(user)
       .then(() => {
         toast.success("ユーザー登録が完了しました。");
