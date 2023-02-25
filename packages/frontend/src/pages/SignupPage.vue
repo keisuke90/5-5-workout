@@ -21,7 +21,7 @@
       required
       v-model="confirm_password"
     />
-    <input type="submit" value="登録" @click="createUser()" />
+    <input type="button" value="登録" @click="createUser()" />
   </form>
 </template>
 
@@ -30,6 +30,7 @@ import { ref } from "vue";
 import { UsersApiService } from "../services/usersApi";
 import { User } from "../../../shared/types/user";
 import crypto from "crypto-js";
+import router from "../router";
 
 let password = ref("");
 const password_digest = crypto.AES.encrypt(password.value, "key").toString();
@@ -38,7 +39,13 @@ const user: User = { id: null, name: "", email: "", password: password_digest };
 let confirm_password: string | null;
 const createUser = () => {
   if (password.value === confirm_password) {
-    UsersApiService.createUser(user);
+    UsersApiService.createUser(user)
+      .then(() => {
+        router.push("/");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 };
 </script>
@@ -63,7 +70,7 @@ input[type="password"] {
   font-size: 16px;
   box-sizing: border-box;
 }
-input[type="submit"] {
+input[type="button"] {
   background-color: #4caf50;
   color: #fff;
   padding: 10px;
