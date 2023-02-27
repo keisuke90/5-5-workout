@@ -1,6 +1,6 @@
 import express from "express";
 import { logger } from "./lib/log/logger";
-import { initialize } from "./lib/account/session";
+import passport from "./lib/account/session";
 import { sessionRouter } from "./routes/session";
 import { usersRouter } from "./routes/users";
 import { workoutRouter } from "./routes/workout";
@@ -14,7 +14,7 @@ const port = 3000;
 app.use(cors());
 app.use(bodyParser.json());
 app.use(flash());
-app.use(initialize());
+app.use(passport.initialize());
 
 app.use("/session", sessionRouter);
 app.use("/users", usersRouter);
