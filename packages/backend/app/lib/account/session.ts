@@ -5,6 +5,8 @@ import {
   ExtractJwt,
   StrategyOptions,
 } from "passport-jwt";
+import { MySQLClient } from "../database/client";
+import { QueryOptions } from "mysql2";
 
 passport.use(
   new LocalStrategy(
@@ -13,8 +15,13 @@ passport.use(
       passwordField: "password",
       session: false,
     },
-    (username: string, password: string, done: any) => {
-      if (username === "hoge" && password === "fuga") {
+    async (username: string, password: string, done: any) => {
+      const getUserFromNameSql: QueryOptions = {
+        sql: `SELECT * FROM users WHERE email = ?`,
+        values: [username],
+      };
+      const user: any = await MySQLClient.executeQuery(getUserFromNameSql);
+      if (username === user.name && password === user.password) {
         return done(null, username);
       } else {
         return (
