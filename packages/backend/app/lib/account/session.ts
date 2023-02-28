@@ -11,18 +11,18 @@ import { QueryOptions } from "mysql2";
 passport.use(
   new LocalStrategy(
     {
-      usernameField: "username",
+      usernameField: "email",
       passwordField: "password",
       session: false,
     },
-    async (username: string, password: string, done: any) => {
+    async (email: string, password: string, done: any) => {
       const getUserFromNameSql: QueryOptions = {
         sql: `SELECT * FROM users WHERE email = ?`,
-        values: [username],
+        values: [email],
       };
       const user: any = await MySQLClient.executeQuery(getUserFromNameSql);
-      if (username === user.name && password === user.password) {
-        return done(null, username);
+      if (email === user[0].email && password === user[0].password) {
+        return done(null, email);
       } else {
         return (
           done(null, false),
