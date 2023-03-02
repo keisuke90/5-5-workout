@@ -10,7 +10,7 @@ sessionRouter.post(
   (req, res, next) => {
     const user = req.user;
     const payload = { user: req.user };
-    const token = jwt.sign(payload, "secret", { expiresIn: "1m" });
+    const token = jwt.sign(payload, "secret", { expiresIn: "12h" });
     res.json({ user, token });
   }
 );
