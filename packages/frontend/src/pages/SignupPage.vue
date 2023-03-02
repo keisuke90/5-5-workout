@@ -38,8 +38,8 @@ let confirm_password: string | null;
 const createUser = () => {
   if (user.password === confirm_password) {
     UsersApiService.createUser(user)
-      .then(() => {
-        toast.success("ユーザー登録が完了しました。");
+      .then((res) => {
+        toast.success(res.data.message);
         router.push("/");
       })
       .catch((err) => {
