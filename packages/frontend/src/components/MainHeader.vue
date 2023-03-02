@@ -11,10 +11,10 @@
         <li class="menu__item">
           <router-link to="/about">About</router-link>
         </li>
-        <li class="menu__item">
+        <li class="menu__item" v-if="!isLogin">
           <router-link to="/signup">Signup</router-link>
         </li>
-        <li class="menu__item">
+        <li class="menu__item" v-if="!isLogin">
           <router-link to="/login">Login</router-link>
         </li>
       </ul>
@@ -22,7 +22,19 @@
   </div>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import jwtDecode from "jwt-decode";
+import { computed } from "vue";
+
+const decodedToken: any = jwtDecode(document.cookie);
+const expirationDate = new Date(decodedToken.exp * 1000);
+const currentDate = computed(() => {
+  return new Date();
+});
+const isLogin = computed(() => {
+  return currentDate.value < expirationDate;
+});
+</script>
 
 <style lang="scss" scoped>
 a {
