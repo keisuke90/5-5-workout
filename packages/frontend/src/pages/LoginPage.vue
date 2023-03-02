@@ -1,15 +1,42 @@
 <template>
   <form>
     <h1>ログイン</h1>
-    <label for="username">ユーザー名</label>
-    <input type="text" id="username" name="username" required />
+    <label for="email">メール</label>
+    <input type="text" id="email" name="email" v-model="email" required />
     <label for="password">パスワード</label>
-    <input type="password" id="password" name="password" required />
-    <input type="submit" value="ログイン" />
+    <input
+      type="password"
+      id="password"
+      name="password"
+      v-model="password"
+      required
+    />
+    <input type="button" value="登録" @click="loginUser()" />
   </form>
 </template>
 
-<script setup></script>
+<script setup lang="ts">
+import { sessionApiService } from "../services/sessionAPI";
+import router from "../router";
+import { useToast } from "vue-toastification";
+
+const toast = useToast();
+let email: string = "";
+let password: string = "";
+
+const loginUser = () => {
+  sessionApiService
+    .loginUser(email, password)
+    .then((res) => {
+      document.cookie = res.data.token;
+      toast.success("ログインしました。");
+      router.push("/");
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+</script>
 
 <style lang="scss" scoped>
 form {
@@ -31,7 +58,7 @@ input[type="password"] {
   font-size: 16px;
   box-sizing: border-box;
 }
-input[type="submit"] {
+input[type="button"] {
   background-color: #4caf50;
   color: #fff;
   padding: 10px;
