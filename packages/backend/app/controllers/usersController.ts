@@ -1,6 +1,7 @@
 import express, { Router, Request, Response, NextFunction } from "express";
 import { QueryError, QueryOptions } from "mysql2";
 import { MySQLClient } from "../lib/database/client";
+import { validationResult, CustomValidator } from "express-validator";
 
 const router: Router = express.Router();
 
@@ -42,6 +43,11 @@ export const insertUser = async (
 ) => {
   try {
     console.log(req.body);
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
     const insertUserSql: QueryOptions = {
       sql: `insert into users values (0, "${req.body.email}", "${req.body.password}", "${req.body.name}")`,
     };
