@@ -2,6 +2,7 @@ import express, { Router, Request, Response, NextFunction } from "express";
 import { QueryError, QueryOptions } from "mysql2";
 import { MySQLClient } from "../lib/database/client";
 import { validationResult, CustomValidator } from "express-validator";
+import { User } from "../../../shared/types/user";
 
 const router: Router = express.Router();
 
@@ -42,7 +43,7 @@ export const insertUser = async (
   next: NextFunction
 ) => {
   try {
-    console.log(req.body);
+    // console.log(req.body);
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
@@ -55,6 +56,17 @@ export const insertUser = async (
     res.status(201).send({ message: "ユーザー登録が完了しました。" });
   } catch (err) {
     next(err);
+  }
+};
+
+export const isValidUser: CustomValidator = async (value) => {
+  const getUserFromEmailSql: QueryOptions = {
+    sql: `SELECT * FROM users WHERE email = ?`,
+    values: [value],
+  };
+  const user: any = await MySQLClient.executeQuery(getUserFromEmailSql);
+  if (user.length > 0) {
+    return Promise.reject("このメールアドレスはすでに登録されています。");
   }
 };
 
