@@ -2,6 +2,7 @@ import express, { Router, Request, Response, NextFunction } from "express";
 import { QueryError, QueryOptions } from "mysql2";
 import { MySQLClient } from "../lib/database/client";
 import { validationResult, CustomValidator } from "express-validator";
+import bcrypt from "bcrypt";
 import { User } from "../../../shared/types/user";
 
 const router: Router = express.Router();
@@ -48,11 +49,14 @@ export const insertUser = async (
       return res.status(400).json({ errors: errors.array() });
     }
 
+    const password_digest = await bcrypt.hash(req.body.password, 10);
+
     const insertUserSql: QueryOptions = {
-      sql: `insert into users values (0, "${req.body.email}", "${req.body.password}", "${req.body.name}")`,
+      sql: `insert into users values (0, "${req.body.email}", "${password_digest}", "${req.body.name}")`,
     };
-    const result = await MySQLClient.executeQuery(insertUserSql);
-    res.status(201).send({ message: "ユーザー登録が完了しました。" });
+    await MySQLClient.executeQuery(insertUserSql).then(() => {
+      res.status(201).send({ message: "ユーザー登録が完了しました。" });
+    });
   } catch (err) {
     next(err);
   }
