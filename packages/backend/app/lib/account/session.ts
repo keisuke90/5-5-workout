@@ -7,6 +7,7 @@ import {
 } from "passport-jwt";
 import { MySQLClient } from "../database/client";
 import { QueryOptions } from "mysql2";
+import bcrypt from "bcrypt";
 
 passport.use(
   new LocalStrategy(
@@ -21,7 +22,8 @@ passport.use(
         values: [email],
       };
       const user: any = await MySQLClient.executeQuery(getUserFromNameSql);
-      if (email === user[0].email && password === user[0].password) {
+      const comparedPassword = await bcrypt.compare(password, user[0].password);
+      if (email === user[0].email && comparedPassword) {
         return done(null, email);
       } else {
         return (
