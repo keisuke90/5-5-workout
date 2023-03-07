@@ -11,7 +11,7 @@
       v-model="password"
       required
     />
-    <input type="button" value="登録" @click="loginUser()" />
+    <input type="button" value="ログイン" @click="loginUser()" />
   </form>
 </template>
 
